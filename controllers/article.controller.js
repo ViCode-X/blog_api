@@ -15,7 +15,12 @@ const postArticle = async (req, res, next) => {
 
   }    
 try {
-    const newArticle = new ArticleModel({value});
+    const {title, content } = value;
+    const newArticle = new ArticleModel({
+        title,
+        content,
+
+    });
     await newArticle.save();
 
     return res.status(200).json({
