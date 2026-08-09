@@ -11,14 +11,17 @@ const postArticle = async (req, res, next) => {
 
   const { error, value } = articleSchema.validate(req.body);
   if (error) {
-    return res.status(400).json("Please provide article title and content");
+    return res.status(400).json({
+        error,
+  });
 
   }    
 try {
-    const {title, content } = value;
+    const {title, content , author} = value;
     const newArticle = new ArticleModel({
         title,
         content,
+        author: author || "Guest",
 
     });
     await newArticle.save();
@@ -88,10 +91,18 @@ const updateArticleById = async (req, res, next) => {
         author : Joi.string().optional().default("Guest"),
     }  );
     
+    const { error, value } = articleSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({
+            error,
+        });
+    }
+
     try {
         const updatedArticle = await ArticleModel.findByIdAndUpdate(
             req.params.id, 
-            {...req.body}, 
+            {...req.body},
+            {...value }, 
             { new: true,
               runValidators: true,
              }
