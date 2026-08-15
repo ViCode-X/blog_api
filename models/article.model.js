@@ -71,9 +71,9 @@ articleSchema.index({
     content: "text",
     excerpt: "text",
     tags: "text",
-    category :"text",
+    category: "text",
     author: "text",
-    slug: "text"
+    slug: "text",
 });
 
 // Automatically generate slug from title
