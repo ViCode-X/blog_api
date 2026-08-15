@@ -2,6 +2,35 @@ const Joi = require ('joi');
 
 const ArticleModel = require('../models/article.model.js');
 
+ const searchArticles = async (req, res, next) => {  
+    try {
+        const { q } = req.query;
+
+        if (!q || !q.trim()) {
+            return res.status(400).json({
+                error: "Search keyword is required",
+            });
+        }
+
+        const articles = await ArticleModel.find(
+            {
+                $text: {
+                    $search: q,
+                },
+            },
+            {
+                score: { $meta: "textScore" },
+            }
+        ).sort({
+            score: { $meta: "textScore" },
+        });
+
+        res.status(200).json(articles);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const postArticle = async (req, res, next) => {
   const articleSchema = Joi.object ({
     title: Joi.string().min(5).required(),
@@ -139,13 +168,16 @@ const deleteArticleById = async (req, res, next) => {
     } catch (error){
         next(NativeError);
         
-    }
+    }};
 
-};
+
+
+
 module.exports = {
     postArticle,
     getAllArticle,
     getArticleById,
     updateArticleById,
-    deleteArticleById
+    deleteArticleById,
+    searchArticles
 };

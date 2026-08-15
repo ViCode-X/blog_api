@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const {
+    searchArticles,
     postArticle,
     getAllArticle,
     getArticleById,
     updateArticleById,
     deleteArticleById,
 } = require('../controllers/article.controller.js');
+
+router.get('/articles/search', searchArticles);
 
 router.post('/articles', postArticle);
 
