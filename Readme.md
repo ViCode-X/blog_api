@@ -28,7 +28,7 @@ A RESTful Blog API built with Node.js, Express, MongoDB, and Mongoose. The proje
 | GET | `/articles` | Get all articles |
 | GET | `/articles/:id` | Get an article |
 | POST | `/articles` | Create an article |
-| PATCH | `/articles/:id` | Update an article |
+| PUT | `/articles/:id` | Update an article |
 | DELETE | `/articles/:id` | Delete an article |
 | GET | `/articles/search?q=keyword` | Search articles |
 
