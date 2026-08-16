@@ -73,7 +73,11 @@ const getAllArticle = async (req, res, next) => {
     const skip = (page - 1) * limit;
     
     try {
-        const articles = await ArticleModel.find({})
+        const articles = await ArticleModel.find().populate(
+            'author', 
+            'name _id email'
+        )
+
         .sort({createdAt: -1})
         .skip(skip)
         .limit(limit);
