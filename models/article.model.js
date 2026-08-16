@@ -29,9 +29,9 @@ const articleSchema = new mongoose.Schema({
         },
 
         author: {
-            type: String,
-            default: "Guest",
-            trim: true,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
         },
 
         category: {
@@ -72,7 +72,6 @@ articleSchema.index({
     excerpt: "text",
     tags: "text",
     category: "text",
-    author: "text",
     slug: "text",
 });
 
