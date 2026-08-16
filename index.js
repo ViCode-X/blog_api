@@ -7,6 +7,7 @@ const RequestLogger = require('./middlewares/logger.js');
 const errorhandler = require('./middlewares/errorHandler.js');
 
 const ArticleRoutes = require('./routes/article.route.js');
+const UserRoutes = require('./routes/user.route.js');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors('*'));
 app.use(errorhandler);
 app.use('/api/v1/', ArticleRoutes);
+app .use('/api/v1/users', UserRoutes);
 
 
 connectDB();

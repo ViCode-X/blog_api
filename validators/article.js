@@ -10,7 +10,7 @@ const UpdateArticleSchema = Joi.object({
     title: Joi.string().min(3).max(100),
     content: Joi.string().min(10),
     excerpt: Joi.string().max(200).optional(), 
-    author: Joi.string().min(2).optional(),
+
 });
 
 module.exports = {

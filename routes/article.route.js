@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const ValidateSchema = require('../middlewares/schema.middleware.js');
 
+const requireAuth = require('../middlewares/requireAuth.js');
+
+
 const {
     CreateArticleSchema, 
     UpdateArticleSchema, 
@@ -17,13 +20,14 @@ const {
     deleteArticleById,
 } = require('../controllers/article.controller.js');
 
+
 router.get('/articles/search', searchArticles);
 
-router.post('/articles', ValidateSchema(CreateArticleSchema), postArticle);
+router.post('/articles', ValidateSchema(CreateArticleSchema), requireAuth, postArticle);
 
-router.get('/articles', getAllArticle);
+router.get('/articles', requireAuth, getAllArticle);
 
-router.get('/articles/:id', getArticleById);
+router.get('/articles/:id', requireAuth, getArticleById);
 
 router.put('/articles/:id', ValidateSchema(UpdateArticleSchema), updateArticleById);
 

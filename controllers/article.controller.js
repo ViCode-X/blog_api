@@ -48,10 +48,9 @@ const postArticle = async (req, res, next) => {
 try {
     const {title, content , author} = value;
     const newArticle = new ArticleModel({
-        title,
-        content,
-        author: author || "Guest",
-
+        title: req.body.title,
+        content: req.body.content,
+        author: req.user._id,
     });
     await newArticle.save();
 
